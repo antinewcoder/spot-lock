@@ -1,40 +1,82 @@
 "use client";
 
 import Link from "next/link";
-import { Burger, Paper, Container, Group, Anchor, Button } from "@mantine/core";
+import { Burger, Anchor, Button } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 
+
+
 export default function NavBar(){
-    const [opened, { toggle }] = useDisclosure();
+    const [opened, { toggle, close }] = useDisclosure(false);
 
     return (
-        <Paper>
-            <Container>
-                <Group>
-                <Anchor component={Link} href="/" underline="never">
-                    Hello
-                </Anchor>
-                <Anchor component={Link} href="/chat" underline="never">
-                    Chat
-                </Anchor>
-                <Anchor component={Link} href="/gpt" underline="never">
-                GPT
-                </Anchor>
-                    
-                </Group>
-                <Group>
-                    <Button>
-                        Login
-                    </Button>
-                    <Button>
-                        Subscribe
-                    </Button>
-                    <Burger />
-                </Group>
+        <header className="bg-white shadow-md m-5 rounded-xl w-full mx-5 my-5">
+           
+                {/* mobile responsive */}
+                
+                <div className="flex items-center justify-between md:hidden px-4 py-3">
+                <Link
+                    href="/"
+                    className="font-bold text-lg "
+                >
+                    Spot Lock
+                </Link>
+                <Burger className="md:hidden" opened={opened} onClick={toggle} aria-label="Open menu" />
+               
+            </div>
 
-            </Container>
-        </Paper>
-        
-
+       
+        <div className="hidden md:flex items-center justify-between px-6 py-3 ">
+          
+          <nav className="flex gap-8">
+                <Link
+                    href="/"
+                    className="font-bold"
+                >
+                    Spot Lock
+                </Link>
+            
+            <Anchor
+                component={Link}
+                href="/about"
+                underline="never"
+            >
+            About
+            </Anchor>
+            <Anchor
+                component={Link}
+                href="/pricing"
+                underline="never"
+            >
+            Pricing
+            </Anchor>
+            <Anchor
+                component={Link}
+                href="/contact"
+                underline="never"
+            >
+            Contact Us
+            </Anchor>
+          </nav>
+  
+         
+        <div className="flex gap-8 items-center">
+            <Anchor
+                component={Link}
+                href="/login"
+                underline="never"
+            >
+            Login
+            </Anchor>
+            <Button component={Link} href="/subscribe">
+              Get Started
+            </Button>
+            
+          </div>
+        </div>
+    
+       
+      
+      </header>
     );
 }
