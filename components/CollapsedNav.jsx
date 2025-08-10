@@ -1,11 +1,12 @@
-export default function CollapseNav(){
+"use client"
+import { Collapse, Anchor, } from "@mantine/core";
+import Link from "next/link";
+export default function CollapseNav({opened, ...props}){
+    
     return (
-    <div className="flex flex-col ">
-        <nav>
-        <Link href="/" className="font-bold text-l">
-                Spot Lock
-            </Link>
-            
+    <Collapse in={opened} props>
+        <nav className="flex flex-col items-center h-auto gap-4 p-4">
+    
             <Anchor
                 component={Link}
                 href="/about"
@@ -27,18 +28,9 @@ export default function CollapseNav(){
             >
             Contact Us
             </Anchor>
-          </nav>
-  
-         
-        <div className="">
-        <Anchor
-            component={Link}
-            href="/login"
-            underline="never"
-        >
-        Login
-        </Anchor>
-        </div>
-    </div>
+          
+           
+        </nav>
+    </Collapse>
     )
 }

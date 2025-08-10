@@ -1,9 +1,17 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Space_Grotesk } from "next/font/google";
 import { ColorSchemeScript } from "@mantine/core";
 import { Providers } from "./provider";
 import "./globals.css";
 import "@mantine/core/styles.css";
+import NavBar from "../components/NavBar.jsx";
+import Footer from "../components/Footer.jsx";
+
+const spaceGrotesk = Space_Grotesk({
+  weight: ['300', '400', '700'],
+  subsets: ['latin'],
+  variable: '--font-space-grotesk',  
+});
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -29,8 +37,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <head>
         <ColorSchemeScript />
       </head>
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <Providers>{children}</Providers>
+      <body className={`${geistSans.variable} ${geistMono.variable} ${spaceGrotesk.variable} antialiased bg-gradient-to-b from-blue-700 via-blue-400 to-blue-300 min-h-screen`} >
+        <Providers>
+          <NavBar />
+            <main>{children}</main>
+          <Footer />
+          </Providers>
       </body>
     </html>
   );

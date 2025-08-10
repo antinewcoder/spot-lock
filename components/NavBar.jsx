@@ -1,18 +1,21 @@
 "use client";
 
 import Link from "next/link";
-import { Burger, Anchor, Button } from "@mantine/core";
+import { Burger, Anchor, Button} from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
-
+import CollapsedNav from "./CollapsedNav"
 
 
 export default function NavBar(){
-    const [opened, { toggle, close }] = useDisclosure(false);
+    const [opened, { toggle }] = useDisclosure(false);
 
     return (
-        <header className="bg-white shadow-md m-5 rounded-xl w-full mx-5 my-5">
+        <header className="bg-white shadow-md m-4 rounded-xl items-center">
            
-                {/* mobile responsive */}
+                {/* mobile responsive 
+                    if hamburger open show collapsed nav and toggle=onClick
+                */
+                }
                 
                 <div className="flex items-center justify-between md:hidden px-4 py-3">
                 <Link
@@ -21,9 +24,12 @@ export default function NavBar(){
                 >
                     Spot Lock
                 </Link>
-                <Burger className="md:hidden" opened={opened} onClick={toggle} aria-label="Open menu" />
-               
-            </div>
+                <Burger className="md:hidden ml-auto" opened={opened} onClick={toggle} aria-label="Open menu" />
+                </div>
+                <div className="md:hidden">
+                    {opened && <CollapsedNav opened={opened} />}
+                </div>
+                
 
        
         <div className="hidden md:flex items-center justify-between px-6 py-3 ">
@@ -74,9 +80,6 @@ export default function NavBar(){
             
           </div>
         </div>
-    
-       
-      
       </header>
     );
 }
