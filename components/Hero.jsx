@@ -23,8 +23,8 @@ export default function Hero({word}) {
   useEffect(() => {
    
     gsap.to("#hero", {
-      opacity: 1,
-      duration: 1,
+      opacity: 0.8,
+      duration: 0.5,
       delay: 1,
       onComplete: () => {
         maskText(word);
@@ -35,9 +35,9 @@ export default function Hero({word}) {
 
   return (
   <>
-    <div className="mt-40 flex-col md:flex gap-6 text-center">
-      <h1 className="text-white font-bold text-6xl text-shadow-lg">Save your</h1>
-      <h1 id="hero" className="text-white font-bold opacity-100 text-8xl text-shadow-lg">
+    <div className="mt-40 flex-col md:flex space-y-4 text-center">
+      <h1 className="text-white font-bold text-6xl text-shadow-lg ">Save your</h1>
+      <h1 id="hero" className=" text-white font-bold opacity-100 text-8xl text-shadow-lg">
         {displayText}
       </h1>
       
