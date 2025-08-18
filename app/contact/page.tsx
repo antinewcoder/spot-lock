@@ -1,22 +1,18 @@
 "use client";
 
-
 import {
-
   Button,
   Group,
   Paper,
-  PasswordInput,
   Stack,
   Text,
   TextInput,
   Center,
-  Checkbox,
  
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { useRouter } from "next/navigation";
-import { notifications } from "@mantine/notifications";
+import { notifications } from "@mantine/notifications"; // use notifs when done w/ backend conn
 import "@mantine/core/styles.css";
 import "@mantine/notifications/styles.css";
 

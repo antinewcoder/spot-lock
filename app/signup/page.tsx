@@ -1,6 +1,6 @@
 "use client";
 
-import { GoogleButton } from "../../components/GoogleButton";
+import { GoogleButton } from "@/components/GoogleButton";
 
 import {
   Anchor,
@@ -85,10 +85,10 @@ export default function Page() {
       };
       const handleGoogleLogin = async () => {
         const result = await signInWithOAuth();
-        if (result?.error) {
+        if (result) {
           notifications.show({
             title: "Google Login Failed",
-            message: result.error,
+            message: result,
             color: "red",
           });
         }
@@ -159,8 +159,6 @@ export default function Page() {
         </form>
 
         <Divider label="OR" labelPosition="center" my="md" />
-
-        
 
           <Stack w="100%" align="center" gap="md">
             <GoogleButton

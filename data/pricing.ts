@@ -1,7 +1,7 @@
 export const pricingPlans = [
     {
       title: "Free",
-      price: "0",
+      price: 0,
       features: [
         "Store up to 10 passwords",
         "Community support"
@@ -10,7 +10,7 @@ export const pricingPlans = [
     },
     {
       title: "Essential",
-      price: "5",
+      price: 5,
       features: [
         "Store up to 100 passwords",
         "Priority support"
@@ -19,7 +19,7 @@ export const pricingPlans = [
     },
     {
       title: "Pro",
-      price: "100",
+      price: 100,
       features: [
         "Unlimited passwords",
         "Dedicated support"

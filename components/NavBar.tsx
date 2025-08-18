@@ -4,10 +4,18 @@ import Link from "next/link";
 import { Burger, Anchor, Button} from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import CollapsedNav from "./CollapsedNav"
+import { usePathname } from "next/navigation";
 
 
 export default function NavBar(){
     const [opened, { toggle }] = useDisclosure(false);
+    const pathname = usePathname();
+    const hideNavOn = ["/login", "/signup", "/passwords"];
+    const shouldHide = hideNavOn.includes(pathname);
+
+    if (shouldHide){
+        return null;
+    }
 
     return (
         <header className="bg-white shadow-md m-4 rounded-xl items-center">
@@ -74,7 +82,7 @@ export default function NavBar(){
             >
             Login
             </Anchor>
-            <Button component={Link} href="/subscribe">
+            <Button component={Link} href="/signup">
               Get Started
             </Button>
             

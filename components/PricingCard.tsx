@@ -5,13 +5,20 @@ import { IconCheck } from '@tabler/icons-react';
 import { List } from '@mantine/core';
 
 
+interface PricingCardProps{
+    title: string;
+    price: number;
+    features: string[];
+    className?: string;
+
+}
 
 export default function PricingCard({
     title,
     price,
     features,
     className
-}){
+}: PricingCardProps){
     return (
         <Paper className={className} >
             <div className="p-6 bg-slate-200 rounded-md shadow-sm space-y-4 m-2 h-80">

@@ -6,7 +6,7 @@ export async function signInWithOAuth() {
         provider: 'google'
     })
     if (error) {
-        return { error: error.message }
+        return error.message;
     }
     //redirects to the OAuth provider
     if (data?.url){
