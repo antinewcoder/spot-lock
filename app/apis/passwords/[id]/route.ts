@@ -4,8 +4,9 @@ import { createServerSideClient } from "@/supabase/server";
 // retrieve specific password by id
 export async function GET(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
+  const { id } = await params;
   const supabase = await createServerSideClient();
 
   const { data: { session } } = await supabase.auth.getSession();
@@ -15,8 +16,8 @@ export async function GET(
 
   const { data, error } = await supabase
     .from("passwords")
-    .select("*")
-    .eq("id", params.id)
+    .select("id, user_id, place_name, address, password, created_at, updated_at")
+    .eq("id", id)
     .eq("user_id", session.user.id)
     .single();
 
@@ -34,8 +35,9 @@ export async function GET(
 // update specific password id
 export async function PUT(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
+  const { id } = await params;
   const supabase = await createServerSideClient();
 
   const { data: { session } } = await supabase.auth.getSession();
@@ -45,6 +47,13 @@ export async function PUT(
 
   const { place_name, address, password } = await request.json();
 
+  // Validate required fields
+  if (!place_name || !password) {
+    return NextResponse.json({ 
+      error: "place_name and password are required" 
+    }, { status: 400 });
+  }
+
   const { data, error } = await supabase
     .from("passwords")
     .update({
@@ -53,9 +62,9 @@ export async function PUT(
       password,
       updated_at: new Date().toISOString(),
     })
-    .eq("id", params.id)
+    .eq("id", id)
     .eq("user_id", session.user.id)
-    .select()
+    .select("id, user_id, place_name, address, password, created_at, updated_at")
     .single();
 
   if (error) {
@@ -68,8 +77,9 @@ export async function PUT(
 // remove password by id
 export async function DELETE(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
+  const { id } = await params;
   const supabase = await createServerSideClient();
 
   const { data: { session } } = await supabase.auth.getSession();
@@ -80,7 +90,7 @@ export async function DELETE(
   const { error } = await supabase
     .from("passwords")
     .delete()
-    .eq("id", params.id)
+    .eq("id", id)
     .eq("user_id", session.user.id);
 
   if (error) {
