@@ -2,10 +2,8 @@
 
 import { useEffect } from "react";
 import { pricingPlans } from "../../data/pricing";
-import PricingCard from "../../components/PricingCard.jsx";
+import PricingCard from "../../components/PricingCard";
 import { gsap } from "gsap";
-
-
 
 
 export default function Pricing() {

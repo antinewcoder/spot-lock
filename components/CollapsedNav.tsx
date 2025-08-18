@@ -1,8 +1,8 @@
 "use client";
 
-import { Collapse, Anchor, CollapseProps } from "@mantine/core";
+import { Collapse, Anchor } from "@mantine/core";
 import Link from "next/link";
-import { ComponentProps } from "react";
+
 
 
 interface CollapseNavProps {

@@ -24,6 +24,7 @@ export default function Page() {
             firstName: "", 
             lastName: "",
             email: "", 
+            message: ""
         },
     })
 // connect the email sending to backend
@@ -65,7 +66,7 @@ export default function Page() {
               label="Message"
               withAsterisk
               placeholder="Please enter your message here"
-              {...form.getInputProps("contact-content")}
+              {...form.getInputProps("message")}
             />
     
 
@@ -74,6 +75,12 @@ export default function Page() {
             component="a"
             href="mailto:cl4625@columbia.edu"
             className="mt-2 bg-blue-500 text-white hover:bg-blue-600 transition-colors"
+            onClick={(e) => {
+              e.preventDefault();
+              const subject = encodeURIComponent(`Contact Form Submission from ${form.values.firstName} ${form.values.lastName}`);
+              const body = encodeURIComponent(form.values.message);
+              window.location.href = `mailto:cl4625@columbia.edu?subject=${subject}&body=${body}`;
+            }}
         >
           Contact Us
         </Button>

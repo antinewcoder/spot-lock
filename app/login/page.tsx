@@ -81,22 +81,22 @@ export default function Page() {
         </Text>
         <form onSubmit={form.onSubmit(handleLogin)}>
           <Stack>
-            <Group grow>
+            
               <TextInput
                 required
                 label="Email"
                 placeholder="email@provider.com"
                 withAsterisk
-                {...form.getInputProps("Email")}
+                {...form.getInputProps("email")}
               />
               <PasswordInput
                 required
                 label="Password"
                 placeholder="Your password"
                 withAsterisk
-                {...form.getInputProps("Password")}
+                {...form.getInputProps("password")}
               />
-            </Group>
+           
 
             <Button variant="filled" type="submit" radius="xl" mt="md">
               Login with Email

@@ -1,5 +1,5 @@
 "use client"
-import Hero from '../components/Hero.jsx'
+import Hero from '@/components/Hero'
 
 // landing page
 export default function Home() {

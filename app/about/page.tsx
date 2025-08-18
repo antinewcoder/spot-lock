@@ -1,6 +1,5 @@
 "use client"
 
-
 export default function About(){
     return (
         <div className="flex flex-col items-center justify-center min-h-screen px-4 md:px-40 space-y-8 text-white">

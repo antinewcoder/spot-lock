@@ -4,8 +4,8 @@ import { ColorSchemeScript } from "@mantine/core";
 import { Providers } from "./provider";
 import "./globals.css";
 import "@mantine/core/styles.css";
-import NavBar from "../components/NavBar.jsx";
-import Footer from "../components/Footer.jsx";
+import NavBar from "../components/NavBar";
+import Footer from "../components/Footer";
 
 const spaceGrotesk = Space_Grotesk({
   weight: ['300', '400', '700'],
