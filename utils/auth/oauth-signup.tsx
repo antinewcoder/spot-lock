@@ -3,7 +3,11 @@ import { createClient } from '../../supabase/client';
 export async function signInWithOAuth() {
     const supabase = createClient()
     const { data, error } = await supabase.auth.signInWithOAuth({
-        provider: 'google'
+        provider: 'google',
+        options: {
+            redirectTo: "http://localhost:3000/passwords"
+          }
+
     })
     if (error) {
         return error.message;
