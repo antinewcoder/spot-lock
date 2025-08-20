@@ -20,20 +20,28 @@ export default function PasswordList() {
   const [modalOpen, setModalOpen] = useState(false);
   const [loading, setLoading] = useState(true);
 
-  // Handle OAuth code and fetch passwords
   useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const code = params.get("code");
-
     async function init() {
-      if (code) {
-       
-        await supabase.auth.exchangeCodeForSession(code);
-       
-        router.replace("/passwords");
+      // Remove ?code=... from URL if present
+      if (window.location.search.includes("code=")) {
+        window.history.replaceState({}, document.title, "/passwords");
       }
 
-      // Fetch passwords after session is ready
+      // Get current session
+      const { data: { session }, error } = await supabase.auth.getSession();
+      if (error) {
+        console.error("Error getting session:", error.message);
+        setLoading(false);
+        return;
+      }
+
+      if (!session) {
+        console.log("No session found. User needs to login.");
+        setLoading(false);
+        return;
+      }
+
+      // Fetch passwords for logged-in user
       const res = await fetch("/api/passwords");
       const data = await res.json();
       setPasswords(data || []);
@@ -41,7 +49,16 @@ export default function PasswordList() {
     }
 
     init();
-  }, [supabase]);
+
+    // Optional: listen to auth changes
+    const { data: listener } = supabase.auth.onAuthStateChange((_event, session) => {
+      if (!session) {
+        setPasswords([]);
+      }
+    });
+
+    return () => listener.subscription.unsubscribe();
+  }, []);
 
   const handleOpen = (entry: PasswordEntry) => {
     setSelected(entry);
@@ -69,6 +86,7 @@ export default function PasswordList() {
   };
 
   if (loading) return <p>Loading...</p>;
+  if (!passwords.length) return <p>No passwords found or user not logged in.</p>;
 
   return (
     <>
