@@ -22,42 +22,31 @@ export default function PasswordList() {
 
   useEffect(() => {
     async function init() {
-      // Remove ?code=... from URL if present
-      if (window.location.search.includes("code=")) {
-        window.history.replaceState({}, document.title, "/passwords");
-      }
-
-      // Get current session
+     
+      // get current session
       const { data: { session }, error } = await supabase.auth.getSession();
       if (error) {
-        console.error("Error getting session:", error.message);
+        console.error("Can not retrieve session:", error.message);
         setLoading(false);
         return;
       }
 
       if (!session) {
-        console.log("No session found. User needs to login.");
+        console.log("No session was found. User must login.");
+        router.push("/login");
         setLoading(false);
         return;
       }
 
-      // Fetch passwords for logged-in user
-      const res = await fetch("/api/passwords");
-      const data = await res.json();
+      // fetch passwords for logged-in user
+      const response = await fetch("/api/passwords");
+      const data = await response.json();
       setPasswords(data || []);
       setLoading(false);
     }
 
     init();
 
-    // Optional: listen to auth changes
-    const { data: listener } = supabase.auth.onAuthStateChange((_event, session) => {
-      if (!session) {
-        setPasswords([]);
-      }
-    });
-
-    return () => listener.subscription.unsubscribe();
   }, []);
 
   const handleOpen = (entry: PasswordEntry) => {

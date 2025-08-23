@@ -16,6 +16,6 @@ export async function userLogin(
     console.log("Login error:", error.message);
     return { error: error.message };
   }
-  router.push("/"); 
+  router.push("/passwords"); 
   return { error: null };
 }
