@@ -3,3 +3,25 @@
 * {
     font-family: var(--font-space-grotesk), sans-serif !important;
   }
+  .dot {
+    display: inline-block;
+    opacity: 0;
+  }
+  
+  @keyframes dotPulse {
+    0%, 25% { opacity: 0; }
+    50%, 100% { opacity: 1; }
+  }
+  
+  .animate-dot1 {
+    animation-delay: 0s;
+  }
+  .animate-dot2 {
+    animation-delay: 0.3s;
+  }
+  .animate-dot3 {
+    animation-delay: 0.6s;
+  }
+  .animate-dotPulse {
+    animation: dotPulse 1s infinite;
+  }

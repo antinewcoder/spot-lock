@@ -23,8 +23,10 @@ export default function PasswordList() {
   useEffect(() => {
     async function init() {
      
-      // get current session
+      // get current session 
       const { data: { session }, error } = await supabase.auth.getSession();
+
+      // handle when session is not found or error occurs
       if (error) {
         console.error("Can not retrieve session:", error.message);
         setLoading(false);
@@ -38,9 +40,10 @@ export default function PasswordList() {
         return;
       }
 
-      // fetch passwords for logged-in user
+      // fetch passwords for auth user
       const response = await fetch("/api/passwords");
       const data = await response.json();
+      console.log("Fetched passwords:", data);
       setPasswords(data || []);
       setLoading(false);
     }
@@ -74,14 +77,21 @@ export default function PasswordList() {
     setPasswords((prev) => prev.filter((p) => p.id !== selected.id));
   };
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <p className="min-h-screen justify-center items-center">Loading
+    <span className="animate-dotPulse animate-dot1">•</span>
+    <span className="animate-dotPulse animate-dot2">•</span>
+    <span className="animate-dotPulse animate-dot3">•</span>
+  
+  
+  </p>;
   if (!passwords.length) return <p>No passwords found or user not logged in.</p>;
 
   return (
     <>
-      <Button onClick={() => setModalOpen(true)} style={{ float: "right" }}>
+      <Button onClick={() => setModalOpen(true)}>
         Add Password
       </Button>
+      // fix ui
       <Table striped highlightOnHover>
         <thead>
           <tr>
