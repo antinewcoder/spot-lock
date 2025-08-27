@@ -17,8 +17,7 @@ import {
 import { useForm } from "@mantine/form";
 import { useRouter } from "next/navigation";
 import { notifications } from "@mantine/notifications";
-import "@mantine/core/styles.css";
-import "@mantine/notifications/styles.css";
+
 import { userLogin } from "@/utils/auth/user-login";
 
 export default function Page() {
@@ -61,11 +60,11 @@ export default function Page() {
         } 
       };
       const handleGoogleLogin = async () => {
-        const result = await signInWithOAuth();
-        if (result) {
+        const error = await signInWithOAuth();
+        if (error) {
           notifications.show({
             title: "Google Login Failed",
-            message: result,
+            message: error,
             color: "red",
           });
         }
