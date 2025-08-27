@@ -1,4 +1,4 @@
-import { createClient } from "@/supabase/client";
+import createClient  from "@/supabase/client";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 
 export async function userLogin(

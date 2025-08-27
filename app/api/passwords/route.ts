@@ -6,6 +6,8 @@ export async function GET() {
   const supabase = await createServerSideClient();
 
   const { data: { session } } = await supabase.auth.getSession();
+
+  console.log("Session:", session);
   if (!session?.user) {
     return NextResponse.json({ error: "Not authenticated" }, { status: 401 });
   }
@@ -29,11 +31,12 @@ export async function POST(req: Request) {
   const supabase = await createServerSideClient();
 
   const { data: { session } } = await supabase.auth.getSession();
+  console.log("Session:", session);
   if (!session?.user) {
     return NextResponse.json({ error: "Not authenticated" }, { status: 401 });
   }
 
-  const { place_name, address, password } = await req.json();
+  const { place_name, place_address, password, wifi_name} = await req.json();
   
   // inserts a new row with user id along with place + password
   const { data, error } = await supabase
@@ -41,15 +44,18 @@ export async function POST(req: Request) {
     .insert({
       user_id: session.user.id,
       place_name,
-      address,
+      place_address,
+      wifi_name,
       password,
+      
     })
+    // selects the newly added row
     .select(); 
 
   if (error) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
-
+  console.log("Data:", data);
   // returns added entry 
   return NextResponse.json(data[0]);
 }

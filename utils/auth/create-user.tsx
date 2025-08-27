@@ -1,9 +1,8 @@
-import { createClient } from '../../supabase/client';
-import { AuthError, Session, User } from '@supabase/supabase-js';
+import createClient from '../../supabase/client';
 
 type SignUpResult = {
-  data: { user: User | null; session: Session | null };
-  error: AuthError | null;
+  data: any;
+  error: any;
 };
 
 export default async function createUser(
@@ -17,9 +16,11 @@ export default async function createUser(
   const { data, error } = await supabase.auth.signUp({
     email,
     password,
-    options: { data: { firstName, lastName } },
+    options: {
+      data: 
+        { firstName, lastName } 
+    },
   });
-
 
   return { data, error };
 }

@@ -1,15 +1,14 @@
-import { createClient } from '../../supabase/client';
+import createClient  from '../../supabase/client';
 
 export async function signInWithOAuth() {
     const supabase = createClient();
-    const redirect = typeof window !== 'undefined' ? 
-        window.location.origin : 
-        process.env.NEXTAUTH_URL;
+    
     
     const { data, error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
-            redirectTo: `${redirect}/passwords`,
+            redirectTo: `${window.location.origin}/passwords`,
+           
           }
     })
     if (error) {

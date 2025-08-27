@@ -6,7 +6,6 @@ import { signInWithOAuth } from "@/utils/auth/oauth-signup";
 import {
   Anchor,
   Button,
-  Group,
   Paper,
   PasswordInput,
   Stack,
@@ -97,7 +96,6 @@ export default function Page() {
                 {...form.getInputProps("password")}
               />
            
-
             <Button variant="filled" type="submit" radius="xl" mt="md">
               Login with Email
             </Button>
@@ -123,9 +121,9 @@ export default function Page() {
               type="button"
               c="dimmed"
               size="xs"
-              onClick={() => router.push("/login")}
+              onClick={() => router.push("/signup")}
             >
-              Have an account? Login here
+              Don't have an account? Sign-up here
           </Anchor>
         </Stack>
       </Paper>
