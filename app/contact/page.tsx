@@ -30,7 +30,7 @@ export default function Page() {
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>){
     event.preventDefault();
 
-    const response = await fetch('api/contact', 
+    const response = await fetch('/api/contact', 
     {
       method: "POST", 
       headers: {"Content-Type": "application/json"},
@@ -42,6 +42,7 @@ export default function Page() {
         message: "Your message was successfully sent! We will respond in 2-3 business days",
         color: "green"
       });
+      form.reset();
     } else {
       notifications.show({
         title: "Failed to send", 
@@ -49,8 +50,6 @@ export default function Page() {
         color: "red"
       });
     }
-    
-
   };
 
   return (
@@ -95,8 +94,8 @@ export default function Page() {
     
 
         <Button
+            type="submit"
             variant="light"
-            component="a"
             className="mt-2 bg-blue-500 text-white hover:bg-blue-600 transition-colors"
         >
           Contact Us
