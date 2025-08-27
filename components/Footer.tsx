@@ -1,7 +1,7 @@
 "use client"
 export default function Footer() {
     return (
-      <footer className=" text-blue-400 py-6 mt-auto border-t border-slate-200 bg-white">
+      <footer className=" text-blue-400 py-6 mt-20 border-t border-slate-200 bg-white">
         <div className="flex justify-between max-w-auto m-4">
             <div className="font-bold text-lg text-black">Spot Lock</div>
                 <nav className="flex space-x-6">

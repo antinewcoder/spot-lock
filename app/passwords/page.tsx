@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Button, Modal, TextInput, Stack,  Group, Paper, Divider } from "@mantine/core";
 import createClient from "../../supabase/client";
 import { useRouter, useSearchParams, usePathname, useParams } from "next/navigation";
 import { PasswordEntry } from "../types/password";
@@ -17,12 +16,15 @@ export default function PasswordPage() {
   const pathname = usePathname();
   const params = useParams();
 
-  const isAdding = pathname.endsWith("/new");
-  const selectedId = (params?.id as string) || undefined;
+
+  
+  const isAdding = searchParams.get("modal") === "new";
+  const selectedId = searchParams.get("id");
   const showModal = isAdding || !!selectedId;
   
   const [passwords, setPasswords] = useState<PasswordEntry[]>([]);
   const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
 
 
   // clean the URL 
@@ -31,7 +33,7 @@ export default function PasswordPage() {
       router.replace(pathname);
     }
 
-  },[searchParams, pathname, router]);
+  },[]);
 
   useEffect(() => {
     async function fetchPasswords() {
@@ -83,6 +85,7 @@ export default function PasswordPage() {
   } : undefined;
  
   async function handleSave(values : InputValues){
+    setSaving(true);
     if (isAdding){
       // posting a new entry
       const response = await fetch("/api/passwords", {
@@ -115,6 +118,7 @@ export default function PasswordPage() {
         console.error("Failed to add new password:", error);
         // add notification
       }
+      setSaving(false);
     }
 
 
@@ -144,9 +148,9 @@ export default function PasswordPage() {
   }
   
   return (
-    <>
-      <h1 className="text-white text-2xl font-bold text-center m-4">
-        Welcome  
+    <div className="min-h-screen">
+      <h1 className="text-white text-6xl font-bold text-center m-10 ">
+        Vault
       </h1>
       <PasswordListCard items={passwords} />
       {showModal && (<FormModal 
@@ -154,11 +158,11 @@ export default function PasswordPage() {
         onCancel={handleClose}
         onSave={handleSave}
         onDelete={handleDelete}
-
+        saving={saving}
       />)
- 
       }
-    </>
+     
+    </div>
     
   );
 }

@@ -19,11 +19,13 @@ export default function FormModal({
   onSave,
   onCancel,
   onDelete, 
+  saving,
 }: {
   initialValues?: InputValues;
   onSave: (values: InputValues) => void;
   onCancel: () => void;
   onDelete: () => void; 
+  saving: boolean;
 }) {
     const baselineValues = initialValues ? initialValues : EMPTY_FORM;
     const [values, setValues] = useState<InputValues>(baselineValues);
@@ -39,11 +41,12 @@ export default function FormModal({
     && (baselineValues.password === values.password);
   
     return (
-    <Modal opened={true} onClose={onCancel} title={initialValues ? "Edit password" : "Add password"}>
+    <Modal opened={true} onClose={onCancel} size="md" title={initialValues ? "Edit password" : "Add password"}>
       <Stack>
         <TextInput 
             required 
             label="Place Name"
+            placeholder="Cafe, Work, Gym"
             value={values.place_name} 
             onChange={(e) => setValues({
                 ...values, place_name: e.currentTarget.value
@@ -60,6 +63,7 @@ export default function FormModal({
         <TextInput 
             required
             label="WiFi Name" 
+            placeholder="WiFi SSID"
             value={values.wifi_name} 
             onChange={(e) =>
             {setValues({...values, wifi_name: e.currentTarget.value})}} />
@@ -67,22 +71,23 @@ export default function FormModal({
             required
             label="Password"
             placeholder="WiFi Password"
-            type="password" 
+             
             value={values.password}
             onChange={(e) => 
                 setValues({...values, password: e.currentTarget.value})
             } />
       </Stack>
 
-      <Group justify="space-between" m="md">
-            {isInEditMode && <Button color="red" onClick={onDelete}>
+      <Group justify="space-between" my="md">
+            {isInEditMode && <Button color="red" disabled={saving} onClick={onDelete}>
                 Delete
             </Button>}
-            <Group m="sm">
-                <Button variant="default" onClick={onCancel}>
+            <Group justify="end">
+
+                <Button variant="default" disabled={saving} onClick={onCancel}>
                     Cancel
                 </Button>
-                <Button disabled={disabled} color="green" onClick={() => onSave(values)}>
+                <Button disabled={disabled || saving} loading={saving} color="green" onClick={() => onSave(values)}>
                     Save
                 </Button>
             </Group>

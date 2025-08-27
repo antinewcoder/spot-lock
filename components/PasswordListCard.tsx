@@ -11,12 +11,11 @@ interface PasswordListProps{
 
 
 export default function PasswordListCard({items}: PasswordListProps) {
-
     return (
         <Stack>
-            <Group justify="space-between">
-                <Text fw={400}>Passwords</Text>
-                <Link href="/passwords/new">
+            <Group justify="space-between" mx="xl">
+                <p className="text-2xl" > Your Passwords</p>
+                <Link href={{pathname: "/passwords", query: {modal: "new"}}}>
                     <ActionIcon
                         variant="filled"   
                         size="md"          
@@ -29,19 +28,24 @@ export default function PasswordListCard({items}: PasswordListProps) {
             </Group>
 
             {items.length ===  0 ? (
-                <Paper shadow="md" withBorder p="md">
-                    It&apos;s empty for now. Click the + button to grow your list.
+                <Paper shadow="md" withBorder p="md" mx="xl" radius="md">
+                    <div className="text-center">
+                    It's empty for now. Click the + button to grow your list.
+                    </div>
                 </Paper>
+
             ) : (
             
             <Stack>
+                
                 {items.map(
                     (password) => (
                         <PasswordCard key={password.id} item={password} />
                     ))
-                };
+                }
+               
             </Stack>
-            )};
+            )}
         </Stack>
     );
 }

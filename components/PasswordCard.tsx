@@ -9,8 +9,8 @@ interface PasswordCardProps {
 
 export default function PasswordCard({item}: PasswordCardProps) {
     return (
-    <Link href={`/passwords/${item.id}`} style={{ textDecoration: "none" }}>
-        <Paper shadow="md"  withBorder>
+    <Link href={{pathname: "/passwords", query: {id: item.id}}} style={{ textDecoration: "none" }}>
+        <Paper shadow="md"  withBorder  p="md" mx="xl" radius="md">
             <Group mb="xs">
                 <strong>{item.place_name}</strong>
             </Group>
